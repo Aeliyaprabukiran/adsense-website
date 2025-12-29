@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interest Calculator - AK Space</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .calculator-container {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+    .calculator-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 30px;
+      border-bottom: 2px solid #ddd;
+    }
+    .tab-button {
+      padding: 12px 24px;
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 600;
+      color: #666;
+      border-bottom: 3px solid transparent;
+      transition: all 0.3s ease;
+    }
+    .tab-button.active {
+      color: #007bff;
+      border-bottom-color: #007bff;
+    }
+    .calculator-content {
+      display: none;
+    }
+    .calculator-content.active {
+      display: block;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #333;
+    }
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    .button-group {
+      display: flex;
+      gap: 10px;
+      margin: 30px 0;
+    }
+    .btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      flex: 1;
+    }
+    .btn-primary {
+      background: #007bff;
+      color: white;
+    }
+    .btn-primary:hover {
+      background: #0056b3;
+    }
+    .btn-secondary {
+      background: #6c757d;
+      color: white;
+    }
+    .btn-secondary:hover {
+      background: #545b62;
+    }
+    .results {
+      display: none;
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 8px;
+      margin-top: 30px;
+    }
+    .results.show {
+      display: block;
+    }
+    .result-card {
+      background: white;
+      padding: 20px;
+      border-radius: 4px;
+      margin-bottom: 15px;
+      border-left: 4px solid #007bff;
+    }
+    .result-label {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 5px;
+    }
+    .result-value {
+      font-size: 28px;
+      font-weight: bold;
+      color: #007bff;
+    }
+    .adsense-block {
+      background: #f0f0f0;
+      padding: 20px;
+      text-align: center;
+      margin: 20px 0;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      color: #999;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="calculator.html" class="active">Interest Calculator</a>
+      <a href="blog.html">Blog</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="calculator-container">
+      <h1>💰 Interest Calculator</h1>
+      <p style="color: #666; margin-bottom: 30px;">Calculate Simple Interest & Compound Interest easily</p>
+
+      <!-- Adsense Block Above -->
+      <div class="adsense-block">
+        [Google AdSense Ad - Above Calculator]
+      </div>
+
+      <!-- Calculator Tabs -->
+      <div class="calculator-tabs">
+        <button class="tab-button active" onclick="switchTab('simple')">Simple Interest</button>
+        <button class="tab-button" onclick="switchTab('compound')">Compound Interest</button>
+      </div>
+
+      <!-- Simple Interest Calculator -->
+      <div id="simple" class="calculator-content active">
+        <form id="simpleForm">
+          <div class="form-group">
+            <label for="simplePrincipal">Principal Amount (₹)</label>
+            <input type="number" id="simplePrincipal" placeholder="Enter principal amount" min="0" step="0.01" required>
+          </div>
+          <div class="form-group">
+            <label for="simpleRate">Interest Rate (% per year)</label>
+            <input type="number" id="simpleRate" placeholder="Enter interest rate" min="0" step="0.01" required>
+          </div>
+          <div class="form-group">
+            <label for="simpleTime">Time Period (Years)</label>
+            <input type="number" id="simpleTime" placeholder="Enter time in years" min="0" step="0.01" required>
+          </div>
+          <div class="button-group">
+            <button type="button" class="btn btn-primary" onclick="calculateSimple()">Calculate</button>
+            <button type="button" class="btn btn-secondary" onclick="resetSimple()">Clear</button>
+          </div>
+        </form>
+
+        <div id="simpleResults" class="results">
+          <div class="result-card">
+            <div class="result-label">Simple Interest Amount</div>
+            <div class="result-value" id="simpleInterestAmount">₹0.00</div>
+          </div>
+          <div class="result-card">
+            <div class="result-label">Total Amount (Principal + Interest)</div>
+            <div class="result-value" id="simpleTotalAmount">₹0.00</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Compound Interest Calculator -->
+      <div id="compound" class="calculator-content">
+        <form id="compoundForm">
+          <div class="form-group">
+            <label for="compoundPrincipal">Principal Amount (₹)</label>
+            <input type="number" id="compoundPrincipal" placeholder="Enter principal amount" min="0" step="0.01" required>
+          </div>
+          <div class="form-group">
+            <label for="compoundRate">Interest Rate (% per year)</label>
+            <input type="number" id="compoundRate" placeholder="Enter interest rate" min="0" step="0.01" required>
+          </div>
+          <div class="form-group">
+            <label for="compoundTime">Time Period (Years)</label>
+            <input type="number" id="compoundTime" placeholder="Enter time in years" min="0" step="0.01" required>
+          </div>
+          <div class="form-group">
+            <label for="compoundFrequency">Compounding Frequency</label>
+            <select id="compoundFrequency">
+              <option value="1">Yearly</option>
+              <option value="2">Half-Yearly</option>
+              <option value="4">Quarterly</option>
+              <option value="12">Monthly</option>
+            </select>
+          </div>
+          <div class="button-group">
+            <button type="button" class="btn btn-primary" onclick="calculateCompound()">Calculate</button>
+            <button type="button" class="btn btn-secondary" onclick="resetCompound()">Clear</button>
+          </div>
+        </form>
+
+        <div id="compoundResults" class="results">
+          <div class="result-card">
+            <div class="result-label">Compound Interest Amount</div>
+            <div class="result-value" id="compoundInterestAmount">₹0.00</div>
+          </div>
+          <div class="result-card">
+            <div class="result-label">Total Maturity Amount</div>
+            <div class="result-value" id="compoundTotalAmount">₹0.00</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Adsense Block Below -->
+      <div class="adsense-block">
+        [Google AdSense Ad - Below Calculator]
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 AK Space. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function switchTab(tabName) {
+      // Hide all calculator contents
+      document.getElementById('simple').classList.remove('active');
+      document.getElementById('compound').classList.remove('active');
+      
+      // Remove active class from all buttons
+      document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+      
+      // Show selected tab
+      document.getElementById(tabName).classList.add('active');
+      event.target.classList.add('active');
+    }
+
+    function calculateSimple() {
+      const principal = parseFloat(document.getElementById('simplePrincipal').value);
+      const rate = parseFloat(document.getElementById('simpleRate').value);
+      const time = parseFloat(document.getElementById('simpleTime').value);
+
+      if (!principal || !rate || !time) {
+        alert('Please fill in all fields');
+        return;
+      }
+
+      // Formula: SI = (P × R × T) / 100
+      const interest = (principal * rate * time) / 100;
+      const totalAmount = principal + interest;
+
+      document.getElementById('simpleInterestAmount').textContent = '₹' + interest.toFixed(2);
+      document.getElementById('simpleTotalAmount').textContent = '₹' + totalAmount.toFixed(2);
+      document.getElementById('simpleResults').classList.add('show');
+    }
+
+    function resetSimple() {
+      document.getElementById('simpleForm').reset();
+      document.getElementById('simpleResults').classList.remove('show');
+    }
+
+    function calculateCompound() {
+      const principal = parseFloat(document.getElementById('compoundPrincipal').value);
+      const rate = parseFloat(document.getElementById('compoundRate').value);
+      const time = parseFloat(document.getElementById('compoundTime').value);
+      const frequency = parseInt(document.getElementById('compoundFrequency').value);
+
+      if (!principal || !rate || !time) {
+        alert('Please fill in all fields');
+        return;
+      }
+
+      // Formula: A = P × (1 + R / (100 × n))^(n × t)
+      const amount = principal * Math.pow((1 + (rate / (100 * frequency))), (frequency * time));
+      const interest = amount - principal;
+
+      document.getElementById('compoundInterestAmount').textContent = '₹' + interest.toFixed(2);
+      document.getElementById('compoundTotalAmount').textContent = '₹' + amount.toFixed(2);
+      document.getElementById('compoundResults').classList.add('show');
+    }
+
+    function resetCompound() {
+      document.getElementById('compoundForm').reset();
+      document.getElementById('compoundResults').classList.remove('show');
+    }
+  </script>
+</body>
+</html>
