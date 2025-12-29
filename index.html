@@ -27,6 +27,7 @@
             <li><a href="#home" onclick="showSection('home')">Home</a></li>
             <li><a href="#dashboard" onclick="showSection('dashboard')">Price Dashboard</a></li>
             <li><a href="#reel-generator" onclick="showSection('reel-generator')">Reel Generator</a></li>
+                        <li><a href="#bmi-calculator" onclick="showSection('bmi-calculator')">BMI Calculator</a></li>
             <li><a href="#about" onclick="showSection('about')">About</a></li>
         </ul>
     </nav>
@@ -135,6 +136,51 @@
             <h2>About AK Space</h2>
             <p>AK Space is your all-in-one platform for real-time commodity prices and social media content generation.</p>
             <p>Built with Node.js backend and responsive frontend for optimal user experience.</p>
+        </section>
+
+                <!-- BMI Calculator Section -->
+        <section id="bmi-calculator" class="section hidden">
+            <h2>📄 BMI Calculator</h2>
+            <p class="section-desc">Calculate your Body Mass Index and get health recommendations</p>
+            
+            <div class="bmi-form-container">
+                <div class="bmi-form">
+                    <div class="form-group">
+                        <label for="height-input">Height (cm):</label>
+                        <input type="number" id="height-input" placeholder="Enter height in centimeters" min="50" max="300">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="weight-input">Weight (kg):</label>
+                        <input type="number" id="weight-input" placeholder="Enter weight in kilograms" min="20" max="500">
+                    </div>
+
+                    <button onclick="calculateBMI()" class="btn btn-primary">Calculate BMI</button>
+                </div>
+
+                <div id="bmi-result" class="bmi-result hidden">
+                    <div class="result-display">
+                        <h3>Your BMI</h3>
+                        <div class="bmi-value" id="bmi-value">0.0</div>
+                        <div class="bmi-category" id="bmi-category">-</div>
+                    </div>
+
+                    <div class="bmi-chart">
+                        <div class="bmi-range underweight">Under 18.5<br>Underweight</div>
+                        <div class="bmi-range normal">18.5 - 24.9<br>Normal</div>
+                        <div class="bmi-range overweight">25 - 29.9<br>Overweight</div>
+                        <div class="bmi-range obese">30+<br>Obese</div>
+                    </div>
+
+                    <div class="health-recommendations" id="health-recommendations"></div>
+                </div>
+            </div>
+
+            <!-- Ad Space -->
+            <div class="ad-space ad-middle">
+                <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-YOUR_PUBLISHER_ID" data-ad-slot="5678901234" data-ad-format="auto" data-full-width-responsive="true"></ins>
+                <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            </div>
         </section>
     </main>
 
