@@ -220,3 +220,50 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Auto-refresh prices every 5 minutes
 setInterval(refreshPrices, 5 * 60 * 1000);
+
+// BMI CALCULATOR FUNCTIONS
+function calculateBMI() {
+    const heightInput = document.getElementById('height-input').value;
+    const weightInput = document.getElementById('weight-input').value;
+    
+    if (!heightInput || !weightInput) {
+        alert('Please enter both height and weight');
+        return;
+    }
+    
+    const height = parseFloat(heightInput) / 100; // Convert cm to meters
+    const weight = parseFloat(weightInput);
+    
+    // BMI Formula: weight (kg) / (height (m))^2
+    const bmi = weight / (height * height);
+    
+    // Determine category
+    let category = '';
+    let recommendations = '';
+    
+    if (bmi < 18.5) {
+        category = 'Underweight';
+        recommendations = '<h4>Recommendations for Underweight:</h4><ul><li>Increase daily calorie intake</li><li>Eat nutrient-rich foods</li><li>Include healthy proteins and fats</li><li>Consult a healthcare provider</li></ul>';
+    } else if (bmi >= 18.5 && bmi < 25) {
+        category = 'Normal Weight';
+        recommendations = '<h4>You are in a healthy weight range!</h4><ul><li>Maintain regular exercise</li><li>Eat balanced meals</li><li>Stay hydrated</li><li>Get adequate sleep</li></ul>';
+    } else if (bmi >= 25 && bmi < 30) {
+        category = 'Overweight';
+        recommendations = '<h4>Recommendations for Overweight:</h4><ul><li>Start regular exercise routine</li><li>Monitor calorie intake</li><li>Increase fruit and vegetable consumption</li><li>Reduce sugary drinks</li></ul>';
+    } else {
+        category = 'Obese';
+        recommendations = '<h4>Recommendations for Obesity:</h4><ul><li>Consult a healthcare provider</li><li>Start a structured exercise program</li><li>Adopt a balanced diet</li><li>Monitor weight regularly</li></ul>';
+    }
+    
+    // Display results
+    const resultContainer = document.getElementById('bmi-result');
+    const bmiValue = document.getElementById('bmi-value');
+    const bmiCategory = document.getElementById('bmi-category');
+    const healthRecs = document.getElementById('health-recommendations');
+    
+    bmiValue.textContent = bmi.toFixed(1);
+    bmiCategory.textContent = category;
+    healthRecs.innerHTML = recommendations;
+    
+    resultContainer.classList.remove('hidden');
+}
